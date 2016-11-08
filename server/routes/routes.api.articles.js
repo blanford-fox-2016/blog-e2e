@@ -13,7 +13,7 @@ router.post('/', controller.addArticle);
 router.post('/seed', controller.seedArticle);
 
 /* Process Delete All Articles. */
-router.delete('/delete', controller.deleteAll);
+router.delete('/seed', controller.deleteAll);
 
 /* Process Edit a Article. */
 router.put('/:id', controller.editArticle);
