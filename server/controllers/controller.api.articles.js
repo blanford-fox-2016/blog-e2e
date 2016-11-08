@@ -30,9 +30,10 @@ let allArticles = (req, res) => {
 let addArticle = (req, res) => {
   Article.create({
     content: req.body.content,
-    articleId: req.body.articleId,
-    userId: req.body.userId
+    articleId: 10,
+    title: req.body.title
   }, (err, new_article) => {
+    console.log(new_article);
     if(err) res.status(400).json({'error': 'Error: ${err}'})
     if(!new_article) res.status(404).json({'message': 'Failed to add article'})
 
@@ -80,9 +81,47 @@ let deleteArticle = (req, res) => {
   })
 }
 
+let seedArticle = (req, res) => {
+  Article.create([{
+    articleId: 1,
+    title: "title 1",
+    content: "artikel 1"
+  },{
+    articleId: 2,
+    title: "title 2",
+    content: "artikel 2"
+  },{
+    articleId: 3,
+    title: "title 3",
+    content: "artikel 3"
+  },{
+    articleId: 4,
+    title: "title 4",
+    content: "artikel 4"
+  },{
+    articleId: 5,
+    title: "title 5",
+    content: "artikel 5"
+  }],(err, new_article) => {
+    console.log(`aa`);
+    if(err) res.status(400).json({'error': 'Error: ${err}'})
+    if(!new_article) res.status(404).json({'message': 'Failed to add article'})
+
+    res.status(200).json(new_article)
+  })
+}
+
+let deleteAll = (req, res) => {
+  Article.remove({}, (err, remove_all) => {
+    res.json(remove_all)
+  })
+}
+
 module.exports = {
   allArticles   : allArticles,
   addArticle    : addArticle,
   editArticle   : editArticle,
-  deleteArticle  : deleteArticle
+  deleteArticle : deleteArticle,
+  seedArticle   : seedArticle,
+  deleteAll     : deleteAll
 }

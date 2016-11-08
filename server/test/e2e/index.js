@@ -2,6 +2,10 @@ const Nightmare = require('nightmare')
 
 const chai = require('chai')
 
+const chaiHTTP = require('chai-http')
+
+chai.use(chaiHTTP)
+
 const expect = chai.expect
 
 const should = chai.should()
@@ -22,13 +26,31 @@ const nightmare = Nightmare({
 /* client URL */
 const URL = 'http://localhost:8080'
 
+// Seeder
+before(function(done){
+	chai.request('http://localhost:5000')
+		.post('/api/articles/seed')
+		.end(function(err, res){
+			done()
+		})
+})
+
+// delete All
+after(function(done){
+	chai.request('http://localhost:5000')
+		.delete('/api/articles/delete')
+		.end(function(err, res){
+			done()
+		})
+})
+
 describe('Create new article', function(){
   this.timeout(15000)
 
   it('expect to able create new article', function(done){
     nightmare
       .goto(`${URL}`)
-      .type(`input#articleId`, 1)
+			.type(`input#title`, 'new title from test e2e')
       .type(`textarea#content`, 'new article content from test e2e : \n Lorem ipsum dolor sit amet, consectetur adipiscing elit.')
       .click(`button#btn_add`)
 			.wait(1000)
@@ -48,7 +70,11 @@ describe('Edit a article', function(){
 		nightmare
 			.goto(`${URL}`)
 			.wait(1000)
-			.click(`#edit1`)
+			.click(`#edit10`)
+			.wait(1000)
+			.insert(`input#title`, '')
+			.wait(1000)
+			.type(`input#title`, 'new update title from test e2e')
 			.wait(1000)
 			.insert(`textarea#content`, '')
 			.wait(1000)
@@ -71,7 +97,7 @@ describe('Delete a article', function(){
 		nightmare
 			.goto(`${URL}`)
 			.wait(2000)
-			.click(`#delete1`)
+			.click(`#delete10`)
 			.wait(1000)
 			.click(`#btn_confirm_delete`)
 			.wait(1000)

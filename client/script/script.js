@@ -24,15 +24,16 @@ let submitDeleteButton = (id) => {
   })
 }
 
-function submitUpdateButton(){
+function submitUpdateButton(id){
   $('#btn_update').on('click', (e) => {
     e.preventDefault()
     let new_edit_data = {
       _id : $('#id').val(),
-      articleId : $('#articleId').val(),
+      articleId : id,
+      title : $('#title').val(),
       content : $('#content').val()
     }
-
+    console.log(new_edit_data);
     $.ajax({
       url: "http://localhost:5000/api/articles/"+new_edit_data.articleId,
       method: 'PUT',
@@ -41,6 +42,7 @@ function submitUpdateButton(){
         let replace_row = `
         <tr id=${new_edited._id}>
         <td>${new_edited.articleId}</td>
+        <td>${new_edited.title}</td>
         <td>${new_edited.content}</td>
         <td>
           <button type="button" class="btn btn-warning" id="edit${new_edited.articleId}" onclick="submitEditButton('${new_edited.articleId}')">Edit</button>
@@ -69,7 +71,6 @@ function submitUpdateButton(){
         $('#form_new_content')[0].reset()
         $('#btn_update').hide()
         $('#btn_add').prop('disabled', false)
-        $('#articleId').prop('disabled', false);
         $('#hidden_id').remove()
       }
     })
@@ -77,12 +78,14 @@ function submitUpdateButton(){
 }
 
 let submitEditButton = (id) => {
+  console.log(id);
   $.ajax({
     url:  "http://localhost:5000/api/articles/"+id,
     method: 'PUT',
     success: (edited) => {
       console.log(edited);
-      $('#articleId').val(edited.articleId).prop('disabled', true);
+      $('#articleId').val(edited.articleId)
+      $('#title').val(edited.title)
       $('#content').val(edited.content)
 
       let hidden_id = `
@@ -94,7 +97,7 @@ let submitEditButton = (id) => {
 
       $('#form_new_content').append(hidden_id)
 
-      submitUpdateButton()
+      submitUpdateButton(id)
 
       $('#btn_add').prop('disabled', true)
       $('#btn_update').show()
@@ -111,6 +114,7 @@ function showAll(){
       for(var i = 0; i < all_data.length; i++){
         data_HTML += `<tr id=${all_data[i]._id}>
         <td>${all_data[i].articleId}</td>
+        <td>${all_data[i].title}</td>
         <td>${all_data[i].content}</td>
         <td>
           <button type="button" class="btn btn-warning" id="edit${all_data[i].articleId}" onclick="submitEditButton('${all_data[i].articleId}')">Edit</button>
@@ -148,6 +152,7 @@ function submitNew(){
       url         : 'http://localhost:5000/api/articles',
       data        : {
         articleId : $('#articleId').val(),
+        title   : $('#title').val(),
         content : $('#content').val()
       },
       success      : function(new_content){
@@ -155,6 +160,7 @@ function submitNew(){
         let appendHTML = `
         <tr id=${new_content._id}>
           <td>${new_content.articleId}</td>
+          <td>${new_content.title}</td>
           <td>${new_content.content}</td>
           <td>
             <button type="button" class="btn btn-warning" id="edit${new_content.articleId}" onclick="submitEditButton('${new_content.articleId}')">Edit</button>

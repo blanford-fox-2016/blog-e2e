@@ -9,6 +9,12 @@ router.get('/', controller.allArticles)
 /* Process New Article. */
 router.post('/', controller.addArticle);
 
+/* Process Seeder Article. */
+router.post('/seed', controller.seedArticle);
+
+/* Process Delete All Articles. */
+router.delete('/delete', controller.deleteAll);
+
 /* Process Edit a Article. */
 router.put('/:id', controller.editArticle);
 

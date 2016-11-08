@@ -22,7 +22,6 @@ else if (process.env.ENV === 'test') mongoose.connect(process.env.MONGODB_URI_TE
 else mongoose.connect(process.env.MONGODB_URI)
 
 mongoose.Promise = global.Promise
-console.log(process.env.MONGODB_URI);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
