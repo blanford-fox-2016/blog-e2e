@@ -23,3 +23,31 @@ $(document).ready(function () {
         }
     })
 })
+
+function createCustomer(e) {
+    console.log("FIRED!!!!")
+    e.preventDefault()
+    var name = $("input[name='name']").val()
+    var username = $("input[name='username']").val()
+    var password = $("input[name='password']").val()
+    var email = $("input[name='email']").val()
+    addCustomerFromAPI(name, memberId, address, zip, phone)
+}
+
+function addCustomerFromAPI(name, memberId, address, zip, phone) {
+    $.ajax({
+        url: "http://localhost:3000/api/customer/create",
+        method: "post",
+        contentType: 'application/x-www-form-urlencoded',
+        data: {
+            name: name,
+            memberId: memberId,
+            address: address,
+            zip: zip,
+            phone: phone
+        },
+        success: function (customer) {
+            updateCreateCustomer(customer.customer)
+        }
+    })
+}
