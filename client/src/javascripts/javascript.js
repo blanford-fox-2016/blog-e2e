@@ -15,7 +15,7 @@ function loadArticle() {
                 </thead>
                 <tbody>`
             for (var i = 0; i < data.length; i++) {
-                html += `<tr id="rowItem${data[i]._id}">
+                html += `<tr id="rowItem${i+1}">
                     <td>${data[i].title}</td>
                     <td>${data[i].content}</td>
                     <td><span>
