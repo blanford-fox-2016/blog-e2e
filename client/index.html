@@ -26,26 +26,31 @@
   <!-- end navbar -->
 
   <div class="container">
-    <form id="form_new_memo" method="post">
+    <form id="form_new_content" method="post">
+      <div class="form-group">
+        <label for="articleId">Article ID :</label>
+        <input type="text" id="articleId" class="form-control">
+      </div>
        <div class="form-group">
          <label for="content">Input your content :</label>
          <textarea class="form-control" id="content" style="resize:none;">
 
          </textarea>
        </div>
-       <button type="button" class="btn btn-info" id="btn_update_memo">Update</button>
-       <button type="button" class="btn btn-success" id="btn_add_memo">Submit</button>
+       <button type="button" class="btn btn-info" id="btn_update">Update</button>
+       <button type="button" class="btn btn-success" id="btn_add">Submit</button>
      </form>
 
      <!-- table list articles -->
       <table class="table table-striped">
         <thead>
           <tr>
-            <th class="col-sm-6">Content</th>
-            <th class="col-sm-6">Action</th>
+            <th class="col-sm-4">Article ID</th>
+            <th class="col-sm-4">Content</th>
+            <th class="col-sm-4">Action</th>
           </tr>
         </thead>
-        <tbody id="body_table_memos"></tbody>
+        <tbody id="body_table"></tbody>
       </table>
       <!-- end table list articles -->
   </div>

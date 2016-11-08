@@ -12,6 +12,8 @@ var routes_api_articles = require('./routes/routes.api.articles');
 
 var app = express();
 
+const cors = require('cors')
+
 // mongoose
 const mongoose = require('mongoose')
 
@@ -32,6 +34,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors())
 
 app.use('/api/users', routes_api_users);
 app.use('/api/articles', routes_api_articles);

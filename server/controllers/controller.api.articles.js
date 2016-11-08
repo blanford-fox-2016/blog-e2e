@@ -16,7 +16,7 @@ let allArticles = (req, res) => {
     if(!articles) res.status(404).json({'message': 'Failed to get all articles'})
 
     res.status(200).json(articles)
-  })
+  }).sort({_id: -1}) // desc
 }
 
 /*
