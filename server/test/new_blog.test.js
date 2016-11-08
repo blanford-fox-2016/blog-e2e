@@ -11,7 +11,7 @@ let cheerio = require('cheerio')
 // $.html()
 
 var nightmare = Nightmare({
-  waitTimeout: 1000, // in ms
+  waitTimeout: 50000, // in ms
   width : 1000,
   height : 600,
   typeInterval : 20,
@@ -22,23 +22,30 @@ chai.use(chaiHttp);
 
 describe('test blogs', function() {
 
-  this.timeout(10000)
+  this.timeout(500000)
   const $ = cheerio
   it('it should create new blog', function(done) {
-    var nightmare = Nightmare()
     nightmare
       .goto('http://127.0.0.1:8080/blog.html')
       .type('input#blogID', '2')
+      .wait(1000)
       .type('input#title', 'There always be hope')
-      .type('input#content', 'what you need to do is keep fight until the end')
+      .wait(1000)
+      .type('textarea#content', 'what you need to do is keep fight until the end')
+      .wait(1000)
       .click('input#addNewBlog')
       .wait(1000)
       .evaluate(function () {
-        return document.$('#listOfBlog tr:last .title', document).text()// using cherrio
+        let val = $('#listOfBlog tr:last .title', document).text()// using cherrio
+        return val
       })
-      .then(function(link) {
-        expect(link).to.equal('There always be hope');
+      .then(function(data) {
+        console.log(">>>>>", data);
+        expect(data).to.equal('There always be hope');
         done();
+      })
+      .catch(function(err) {
+        console.log(err);
       })
   });
 });
