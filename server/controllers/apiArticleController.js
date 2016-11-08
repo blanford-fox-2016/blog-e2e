@@ -37,6 +37,18 @@ let getSingleArticle = (req, res, next) => {
   })
 }
 
+let getSingleArticleId = (req, res, next) => {
+  article.findOne({
+    _id: req.params.id
+  }, (err, article) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.json(article);
+    }
+  })
+}
+
 let updateArticle = (req, res, next) => {
   article.update({
     _id: req.params.id
@@ -70,6 +82,7 @@ module.exports= {
   allArticles: allArticles,
   postNewArticle: postNewArticle,
   getSingleArticle: getSingleArticle,
+  getSingleArticleId: getSingleArticleId,
   updateArticle: updateArticle,
   deleteArticle: deleteArticle
 }

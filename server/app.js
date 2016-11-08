@@ -5,6 +5,7 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const User = require('./models/users');
 
@@ -30,6 +31,8 @@ passport.use(new LocalStrategy(User.authenticate()));
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(cors());
 
 app.use('/', routes);
 app.use('/api/article', article);

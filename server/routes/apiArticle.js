@@ -7,6 +7,7 @@ const apiArticle = require('../controllers/apiArticleController');
 router.get('/', apiArticle.allArticles);
 router.post('/', apiArticle.postNewArticle);
 router.get('/:slug', apiArticle.getSingleArticle);
+router.get('/id/:id', apiArticle.getSingleArticleId);
 router.put('/:id', apiArticle.updateArticle);
 router.delete('/:id', apiArticle.deleteArticle);
 
