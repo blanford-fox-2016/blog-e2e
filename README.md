@@ -1,10 +1,12 @@
 # Blog with Express and TDD
 Implement testing  Restful API with Mocha.js and Chai.js in TDD - Test Driven Development
 
-## How To Use
-1. npm install
-2. mocha test/api.articles.test.js (for test articles)
-3. mocha test/api.users.test.js (for test users)
+## How To Run Server - Test models
+`npm run test`
+
+## How To Testing
+1. `npm run test_integration`
+2. `npm run test_e2e`
 
 ## Dependency
 1. mocha.js : ```npm i -D mocha```

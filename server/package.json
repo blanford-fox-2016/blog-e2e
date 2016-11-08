@@ -5,8 +5,9 @@
   "scripts": {
     "start": "node ./bin/www",
     "dev": "nodemon ./bin/www",
-    "dev_test": "ENV=test nodemon ./bin/www",
-    "test_integration": "ENV=test mocha test/integration"
+    "test": "ENV=test nodemon ./bin/www",
+    "test_integration": "ENV=test mocha test/integration",
+    "test_e2e": "ENV=test mocha test/e2e"
   },
   "dependencies": {
     "body-parser": "~1.15.1",
@@ -22,6 +23,7 @@
     "mongodb": "^2.2.11",
     "mongoose": "^4.6.6",
     "morgan": "~1.7.0",
+    "nightmare": "^2.8.1",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^4.0.0",
