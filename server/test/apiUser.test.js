@@ -91,6 +91,7 @@ describe('edit user', function() {
             res.should.be.json;
             res.should.have.status(200);
             res.body.ok.should.equal(1);
+            res.body.nModified.should.equal(1);
             res.body.n.should.equal(1);
             done();
           })
