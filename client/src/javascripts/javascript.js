@@ -93,10 +93,7 @@ function formEditArticle(parameter) {
 function putItem(parameter) {
     let article_title = document.getElementById('input_title').value
     let article_content = document.getElementById('input_content').value
-    let item_desc = document.getElementById('input_description').value
-    let item_price = document.getElementById('input_price').value
-    let item_stock = document.getElementById('input_stock').value
-    if (article_title != "" && article_content != "" && item_desc != "" && item_price != "" && item_stock != "") {
+    if (article_title != "" && article_content != "") {
         $.ajax({
             url: `http://localhost:3000/api/item/${parameter}`,
             method: "put",
