@@ -24,23 +24,23 @@ const nightmare = Nightmare({
 
 chai.use(chaiHttp)
 
-// before(function (done) {
-//   chai.request('http://localhost:3000')
-//     .get('/api/user/seed')
-//     .end(function (err, res) {
-//       console.log("seeded")
-//       done()
-//     })
-// })
+before(function (done) {
+  chai.request('http://localhost:3000')
+    .get('/api/user/seed')
+    .end(function (err, res) {
+      console.log("seeded")
+      done()
+    })
+})
 
-// after(function (done) {
-//   chai.request(app)
-//     .delete('/api/user/delete')
-//     .end(function (err, res) {
-//       console.log("deleted")
-//       done()
-//     })
-// })
+after(function (done) {
+  chai.request(app)
+    .delete('/api/user/delete')
+    .end(function (err, res) {
+      console.log("deleted")
+      done()
+    })
+})
 
 //USER
 describe("Test if Users works", function () {
@@ -69,39 +69,47 @@ describe("Test if Users works", function () {
 
 describe("Test if Users submission works", function () {
 
-<<<<<<< HEAD
     this.timeout(10000)
 
-    it.only("Return true if register user works", function (done) {
+    it("Return true if register user works", function (done) {
         nightmare
             .goto('http://localhost:8080')
             .wait(1000)
             .type('input#inputName', 'name z')
             .type('input#inputUsername', 'username z')
             .type('input#inputPassword', 'password z')
-            .type('input#inputEmail', 'email z')
+            .type('input#inputEmail', 'zzz@gmail.com')
             .wait(1000)
             .click('#inputSubmit')
             .wait(1000)
-            // .evaluate(function () {
-            //     let val = $('#rowOfUser tr:first td:first', document)
-            //     return val.text()
-            // })
-            .end()
+            .evaluate(function () {
+                let val = $('#rowOfUser tr:last td:first', document)
+                return val.text()
+            })
             .then(function (name) {
-                console.log(">>>>>>>>>>>")
+                expect(name).to.equal("name z")
                 done()
+            })
+            .catch(function (error) {
+                console.error('Error:', error)
             })
     })
 
-    it.skip("Return true if delete blog works", function (done) {
-        chai.request(app)
-            .delete('/api/blog/delete/1')
-            .end(function (err, res) {
-                expect(res).to.have.status(200)
-                expect(res.body.title).to.equal('title a')
-                expect(res.body.description).to.equal('description a')
+    it("Return true if delete blog works", function (done) {
+        nightmare
+            .goto('http://localhost:8080')
+            .click('data-id')
+            .wait(1000)
+            .evaluate(function () {
+                let val = $('#rowOfUser tr:last td:first', document)
+                return val.text()
+            })
+            .then(function (name) {
+                expect(name).to.equal("name z")
                 done()
+            })
+            .catch(function (error) {
+                console.error('Error:', error)
             })
     })
 
@@ -120,55 +128,7 @@ describe("Test if Users submission works", function () {
                 done()
             })
     })
-=======
   this.timeout(5000)
-
-  it("Return true if register user works", function (done) {
-    nightmare
-      .wait(1000)
-      .type('input#inputName', 'name z')
-      .type('input#inputUsername', 'username z')
-      .type('input#inputPassword', 'password z')
-      .type('input#inputEmail', 'email z')
-      .wait(1000)
-      .click('#inputSubmit')
-      .wait(1000)
-      .then(function () {
-        done()
-      })
-      .catch(function (error) {
-        console.error('Error:', error)
-      })
-  })
-
-  it.skip("Return true if delete blog works", function (done) {
-    chai.request(app)
-      .delete('/api/blog/delete/1')
-      .end(function (err, res) {
-        expect(res).to.have.status(200)
-        expect(res.body.title).to.equal('title a')
-        expect(res.body.description).to.equal('description a')
-        done()
-      })
-  })
-
-  it.skip("Return true if update blog works", function (done) {
-    chai.request(app)
-      .put('/api/blog/update/1')
-      .send({
-        postId: '7',
-        title: 'title update',
-        description: 'description update'
-      })
-      .end(function (err, res) {
-        expect(res).to.have.status(200)
-        expect(res.body.title).to.equal('title update')
-        expect(res.body.description).to.equal('description update')
-        done()
-      })
-  })
-
->>>>>>> 47ee325804cd776fb43012944dcdceaff0e32b5d
 })
 
 

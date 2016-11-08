@@ -14,7 +14,7 @@ $(document).ready(function () {
                                         <td>
                                             <span>
                                                 <button id="buttonEditUser${data[i]._id}" class="btn btn-warning" onclick="">Edit</button>
-                                                <button id="buttonDeleteUser${data[i]._id}" class="btn btn-danger" onclick="${data[i].userId}">Delete</button>
+                                                <button id="buttonDeleteUser${data[i]._id}" class="btn btn-danger" onclick="deleteUser('${data[i].userId}')">Delete</button>
                                             </span>
                                         </td>
                                      </tr>`)
@@ -61,12 +61,12 @@ function updateCreateUser(user) {
                     <td>${user.email}</td>
                     <td>
                         <span>
-                            <button id="buttonEditUser${user._id}" class="btn btn-warning" onclick="">Edit</button>
-                            <button id="buttonDeleteUser${user._id}" class="btn btn-danger" onclick="deleteUser(${user.userId})">Delete</button>
+                            <button data-id="${user._id}" class="btn btn-warning" onclick="">Edit</button>
+                            <button data-id="${user._id}" class="btn btn-danger" onclick="deleteUser('${user.userId}')">Delete</button>
                         </span>
                     </td>
                  </tr>`
-    $("tbody:last").find(`#rowOfUser`).append(html)
+    $("tbody:last").append(html)
     $("input[name='userId']").val("")
     $("input[name='name']").val("")
     $("input[name='username']").val("")
@@ -82,14 +82,14 @@ function deleteUser(id) {
         deleteUserFromAPI(id)
     }
 }
-function deleteUserFromAPI(id) {
-    var temp = id
+function deleteUserFromAPI(userId) {
+    var temp = userId
     $.ajax({
-        url: `http://localhost:3000/api/customer/delete/${id}`,
+        url: `http://localhost:3000/api/user/delete/${userId}`,
         method: "delete",
         contentType: 'application/x-www-form-urlencoded',
         data: {
-            id: id
+            userId: userId
         },
         success: function () {
             updateDeleteUser(temp)
@@ -98,5 +98,5 @@ function deleteUserFromAPI(id) {
 }
 function updateDeleteUser(id) {
     console.log(id)
-    $("tbody").find(`#rowCustomer${id}`).remove()
+    $("tbody").find(`#rowUser${id}`).remove()
 }
