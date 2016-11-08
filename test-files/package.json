@@ -1,0 +1,16 @@
+{
+  "name": "test-files",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "wdio"
+  },
+  "author": "tevin <tevinsa@yahoo.com> (www.github.com/tevinstein)",
+  "license": "ISC",
+  "devDependencies": {
+    "wdio-dot-reporter": "0.0.6",
+    "wdio-mocha-framework": "^0.5.2",
+    "webdriverio": "^4.3.0"
+  }
+}
