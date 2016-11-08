@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <title>Blog</title>
+</head>
+<body>
+  <!-- navbar -->
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">Blog</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </nav>
+  <!-- end navbar -->
+
+  <div class="container">
+    <form id="form_new_content" method="post">
+      <div class="form-group">
+        <label for="title">Title :</label>
+        <input type="text" id="title" class="form-control">
+      </div>
+       <div class="form-group">
+         <label for="content">Input your content :</label>
+         <textarea class="form-control" id="content" style="resize:none;"></textarea>
+       </div>
+       <button type="button" class="btn btn-info" id="btn_update">Update</button>
+       <button type="button" class="btn btn-success" id="btn_add">Submit</button>
+     </form>
+
+     <!-- table list articles -->
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th class="col-sm-3">Article ID</th>
+            <th class="col-sm-3">Title</th>
+            <th class="col-sm-3">Content</th>
+            <th class="col-sm-3">Action</th>
+          </tr>
+        </thead>
+        <tbody id="body_table"></tbody>
+      </table>
+      <!-- end table list articles -->
+  </div>
+</body>
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+  <scriptsrc="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+  <!-- script.js -->
+   <script src="/script/script.js"></script>
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</html>
