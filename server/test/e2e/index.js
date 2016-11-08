@@ -76,7 +76,6 @@ describe("Test if Users submission works", function () {
         nightmare
             .goto('http://localhost:8080')
             .wait(1000)
-            .type('input#inputUserId', '8')
             .type('input#inputName', 'name z')
             .type('input#inputUsername', 'username z')
             .type('input#inputPassword', 'password z')
@@ -96,7 +95,11 @@ describe("Test if Users submission works", function () {
                 console.error('Error:', error)
             })
     })
+})
 
+describe("Test if Users delete works", function () {
+    this.timeout(10000)
+    const $ = cheerio
     it("Return true if delete user works", function (done) {
         nightmare
             .goto('http://localhost:8080')
@@ -115,23 +118,38 @@ describe("Test if Users submission works", function () {
                 console.error('Error:', error)
             })
     })
+})
 
-    it.skip("Return true if update blog works", function (done) {
-        chai.request(app)
-            .put('/api/blog/update/1')
-            .send({
-                postId: '7',
-                title: 'title update',
-                description: 'description update'
+describe("Test if Users update works", function () {
+    this.timeout(10000)
+    const $ = cheerio
+    it("Return true if update user works", function (done) {
+        nightmare
+            .goto('http://localhost:8080')
+            .wait(1000)
+            .click('#update2')
+            .wait(1000)
+            .type('input#inputName', '')
+            .type('input#inputUsername', '')
+            .type('input#inputEmail', '')
+            .wait(1000)
+            .type('input#inputName', 'name update')
+            .type('input#inputUsername', 'username update')
+            .type('input#inputEmail', 'update@gmail.com')
+            .click('#updateUser')
+            .wait(1000)
+            .evaluate(function () {
+                let val = $('#rowOfUser tr:first td:first', document)
+                return val.text()
             })
-            .end(function (err, res) {
-                expect(res).to.have.status(200)
-                expect(res.body.title).to.equal('title update')
-                expect(res.body.description).to.equal('description update')
+            .then(function (name) {
+                expect(name).to.equal("name update")
                 done()
             })
+            .catch(function (error) {
+                console.error('Error:', error)
+            })
     })
-  this.timeout(5000)
 })
 
 

@@ -4,6 +4,7 @@ const userController = require('../controllers/controller.api.users')
 
 router.get('/user/seed', userController.seedUser)
 router.get('/user', userController.getUser)
+router.get('/user/:userId', userController.getUserById)
 router.post('/register', userController.localRegister)
 router.post('/login', userController.loginUser)
 router.delete('/user/delete', userController.deleteAllUser)

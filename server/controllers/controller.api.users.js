@@ -35,8 +35,18 @@ module.exports = {
         })
     },
 
+    getUserById: function (req, res) {
+        User.findOne({
+            userId: req.params.userId
+        }, function (err, data) {
+            if (err) res.json(err)
+            else res.json(data)
+        })
+    },
+
     localRegister: function (req, res) {
         User.register(new User ({
+            userId: req.body.userId,
             name: req.body.name,
             username: req.body.username,
             email: req.body.email
@@ -73,11 +83,9 @@ module.exports = {
         User.findOneAndUpdate({
             userId: req.params.userId
         }, {
-            userId: '3',
-            name: 'name c',
-            username: 'username c',
-            password: 'password c',
-            email: 'ccc@gmail.com'
+            name: req.body.name,
+            username: req.body.username,
+            email: req.body.email
         }, {
             new: true,
             upsert: true
