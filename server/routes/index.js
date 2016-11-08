@@ -10,5 +10,6 @@ router.post('/login', userController.loginUser)
 router.delete('/user/delete', userController.deleteAllUser)
 router.delete('/user/delete/:userId', userController.deleteUserByPostId)
 router.put('/user/update/:userId', userController.updateUser)
+router.post('/user/search', userController.searchUser)
 
 module.exports = router;

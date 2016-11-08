@@ -24,131 +24,161 @@ const nightmare = Nightmare({
 
 chai.use(chaiHttp)
 
-before(function (done) {
-  chai.request('http://localhost:3000')
-    .get('/api/user/seed')
-    .end(function (err, res) {
-      console.log("seeded")
-      done()
+describe("Testing User", function () {
+    before(function (done) {
+        chai.request('http://localhost:3000')
+            .get('/api/user/seed')
+            .end(function (err, res) {
+                console.log("seeded")
+                done()
+            })
     })
-})
 
-after(function (done) {
-  chai.request(app)
-    .delete('/api/user/delete')
-    .end(function (err, res) {
-      console.log("deleted")
-      done()
+    after(function (done) {
+        chai.request(app)
+            .delete('/api/user/delete')
+            .end(function (err, res) {
+                console.log("deleted")
+                done()
+            })
     })
-})
 
 //USER
-describe("Test if Users works", function () {
+    describe("Test if Get all Users works", function () {
 
-  this.timeout(3000)
-  const $ = cheerio
+        this.timeout(3000)
+        const $ = cheerio
 
-  it("expect to return list of users", function (done) {
-    nightmare
-      .goto('http://localhost:8080')
-      .wait(1000)
-      .evaluate(function () {
-        let val = $('#rowOfUser tr:first td:first', document)
-        return val.text()
-      })
-      .then(function (name) {
-        expect(name).to.equal("name a")
-        done()
-      })
-      .catch(function (error) {
-        console.error('Error:', error)
-      })
-  })
+        it("expect to return list of users", function (done) {
+            nightmare
+                .goto('http://localhost:8080')
+                .wait(1000)
+                .evaluate(function () {
+                    let val = $('#rowOfUser tr:first td:first', document)
+                    return val.text()
+                })
+                .then(function (name) {
+                    expect(name).to.equal("name a")
+                    done()
+                })
+                .catch(function (error) {
+                    console.error('Error:', error)
+                })
+        })
 
-})
-
-describe("Test if Users submission works", function () {
-
-    this.timeout(10000)
-    const $ = cheerio
-
-    it("Return true if register user works", function (done) {
-        nightmare
-            .goto('http://localhost:8080')
-            .wait(1000)
-            .type('input#inputName', 'name z')
-            .type('input#inputUsername', 'username z')
-            .type('input#inputPassword', 'password z')
-            .type('input#inputEmail', 'zzz@gmail.com')
-            .wait(1000)
-            .click('#inputSubmit')
-            .wait(1000)
-            .evaluate(function () {
-                let val = $('#rowOfUser tr:last td:first', document)
-                return val.text()
-            })
-            .then(function (name) {
-                expect(name).to.equal("name z")
-                done()
-            })
-            .catch(function (error) {
-                console.error('Error:', error)
-            })
     })
-})
 
-describe("Test if Users delete works", function () {
-    this.timeout(10000)
-    const $ = cheerio
-    it("Return true if delete user works", function (done) {
-        nightmare
-            .goto('http://localhost:8080')
-            .wait(1000)
-            .click('#delete1')
-            .wait(1000)
-            .evaluate(function () {
-                let val = $('#rowOfUser tr:first td:first', document)
-                return val.text()
-            })
-            .then(function (name) {
-                expect(name).to.equal("name b")
-                done()
-            })
-            .catch(function (error) {
-                console.error('Error:', error)
-            })
+    describe("Test if Users submission works", function () {
+
+        this.timeout(10000)
+        const $ = cheerio
+
+        it("Return true if register user works", function (done) {
+            nightmare
+                .goto('http://localhost:8080')
+                .wait(1000)
+                .type('input#inputName', 'name z')
+                .type('input#inputUsername', 'username z')
+                .type('input#inputPassword', 'password z')
+                .type('input#inputEmail', 'zzz@gmail.com')
+                .wait(1000)
+                .click('#createUser')
+                .wait(1000)
+                .evaluate(function () {
+                    let val = $('#rowOfUser tr:last td:first', document)
+                    return val.text()
+                })
+                .then(function (name) {
+                    expect(name).to.equal("name z")
+                    done()
+                })
+                .catch(function (error) {
+                    console.error('Error:', error)
+                })
+        })
     })
-})
 
-describe("Test if Users update works", function () {
-    this.timeout(10000)
-    const $ = cheerio
-    it("Return true if update user works", function (done) {
-        nightmare
-            .goto('http://localhost:8080')
-            .wait(1000)
-            .click('#update2')
-            .wait(1000)
-            .type('input#inputName', '')
-            .type('input#inputUsername', '')
-            .type('input#inputEmail', '')
-            .wait(1000)
-            .type('input#inputName', 'name update')
-            .type('input#inputUsername', 'username update')
-            .type('input#inputEmail', 'update@gmail.com')
-            .click('#updateUser')
-            .wait(1000)
-            .evaluate(function () {
-                let val = $('#rowOfUser tr:first td:first', document)
-                return val.text()
-            })
-            .then(function (name) {
-                expect(name).to.equal("name update")
-                done()
-            })
-            .catch(function (error) {
-                console.error('Error:', error)
-            })
+    describe("Test if Users delete works", function () {
+        this.timeout(10000)
+        const $ = cheerio
+        it("Return true if delete user works", function (done) {
+            nightmare
+                .goto('http://localhost:8080')
+                .wait(1000)
+                .click('#delete1')
+                .wait(1000)
+                .evaluate(function () {
+                    let val = $('#rowOfUser tr:first td:first', document)
+                    return val.text()
+                })
+                .then(function (name) {
+                    expect(name).to.equal("name b")
+                    done()
+                })
+                .catch(function (error) {
+                    console.error('Error:', error)
+                })
+        })
+    })
+
+    describe("Test if Users update works", function () {
+        this.timeout(10000)
+        const $ = cheerio
+        it("Return true if update user works", function (done) {
+            nightmare
+                .goto('http://localhost:8080')
+                .wait(1000)
+                .click('#update2')
+                .wait(1000)
+                .type('input#inputName', '')
+                .type('input#inputUsername', '')
+                .type('input#inputEmail', '')
+                .wait(1000)
+                .type('input#inputName', 'name update')
+                .type('input#inputUsername', 'username update')
+                .type('input#inputEmail', 'update@gmail.com')
+                .click('#updateUser')
+                .wait(1000)
+                .evaluate(function () {
+                    let val = $('#rowOfUser tr:first td:first', document)
+                    return val.text()
+                })
+                .then(function (name) {
+                    expect(name).to.equal("name update")
+                    done()
+                })
+                .catch(function (error) {
+                    console.error('Error:', error)
+                })
+        })
+    })
+
+
+    describe("Test if Users Search works", function () {
+
+        this.timeout(10000)
+        const $ = cheerio
+
+        it("Return true if search user works", function (done) {
+            nightmare
+                .goto('http://localhost:8080')
+                .wait(1000)
+                .type('input#searchUser', 'name update')
+                .wait(1000)
+                .click('#searchButton')
+                .wait(1000)
+                .evaluate(function () {
+                    let val = $('#rowOfUser tr:last td:first', document)
+                    return val.text()
+                })
+                .then(function (name) {
+                    expect(name).to.equal("name update")
+                    done()
+                })
+                .catch(function (error) {
+                    console.error('Error:', error)
+                })
+        })
     })
 })
 

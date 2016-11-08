@@ -24,7 +24,49 @@ $(document).ready(function () {
     })
 })
 
-$(document).on('click', 'button[name="createUser"]', function(e) {
+//SEARCH
+
+$(document).on('click', 'button[id="searchButton"]', function(e) {
+    e.preventDefault()
+    var search = $("input[name='search']").val()
+    searchFromAPI(search)
+})
+
+function searchFromAPI(search) {
+    $.ajax({
+        url: `http://localhost:3000/api/user/search`,
+        method: "post",
+        contentType: 'application/x-www-form-urlencoded',
+        data: {
+            search: search
+        },
+        success: function (search) {
+            updateSearch(search)
+        }
+    })
+}
+
+function updateSearch(search) {
+    var html = `<tbody id="rowOfUser">
+                 <tr id="rowUser${search.userId}">
+                    <td>${search.name}</td>
+                    <td>${search.username}</td>
+                    <td>${search.email}</td>
+                    <td>
+                        <span>
+                            <button id="update${search.userId}" class="btn btn-warning update" onclick="editUser('${search.userId}')">Edit</button>
+                            <button id="delete${search.userId}" class="btn btn-danger delete" onclick="deleteUser('${search.userId}')">Delete</button>
+                        </span>
+                    </td>
+                 </tr>
+                </tbody>  
+               `
+    $("tbody:last").replaceWith(html)
+    $("input[name='search']").val("")
+}
+
+//CREATE USER
+$(document).on('click', 'button[id="createUser"]', function(e) {
     console.log("FIRED!!!!")
     e.preventDefault()
     var userId = $("input[name='userId']").val()
@@ -33,7 +75,6 @@ $(document).on('click', 'button[name="createUser"]', function(e) {
     var password = $("input[name='password']").val()
     var email = $("input[name='email']").val()
     addUserFromAPI(userId, name, username, password, email)
-    return false
 })
 
 function addUserFromAPI(userId, name, username, password, email) {
@@ -127,7 +168,7 @@ function getUser(user) {
     $("form").find(name).val(user.name)
     $("form").find(username).val(user.username)
     $("form").find(email).val(user.email)
-    $("form").find("button[name=createUser]").replaceWith(`<button type='submit' id='updateUser' class='btn btn-default'>Update</button>`)
+    $("form").find("button[id=createUser]").replaceWith(`<button type='submit' id='updateUser' class='btn btn-default'>Update</button>`)
     var temp = $("input[name='userId']").val()
     if ( typeof temp != "undefined") {
         $("input[name='userId']").replaceWith(`<input type='hidden' class='form-control' name='userId' value='${user.userId}'>`)
@@ -175,7 +216,7 @@ function updateUpdateUser(user) {
                     </td>
                  </tr>`
     $("tbody").find(`#rowUser${user.userId}`).replaceWith(html)
-    $("form").find("button[name=updateCustomer]").replaceWith("<button type='submit' id='inputSubmit' class='btn btn-default'>Submit</button>")
+    $("form").find("button[name=updateCustomer]").replaceWith("<button type='submit' id='createUser' class='btn btn-default'>Submit</button>")
     $("input[name='name']").val("")
     $("input[name='username']").val("")
     $("input[name='email']").val("")

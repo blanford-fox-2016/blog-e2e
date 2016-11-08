@@ -103,6 +103,15 @@ module.exports = {
             if (err) res.json(err)
             else res.json(data)
         })
+    },
+
+    searchUser: function (req, res) {
+        User.findOne({
+            name: req.body.search
+        }, function (err, data) {
+            if (err) res.json(err)
+            else res.json(data)
+        })
     }
 
 }
