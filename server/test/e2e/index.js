@@ -69,7 +69,7 @@ describe("Test if Users submission works", function () {
 
     this.timeout(10000)
 
-    it("Return true if register user works", function (done) {
+    it.only("Return true if register user works", function (done) {
         nightmare
             .goto('http://localhost:8080')
             .wait(1000)
