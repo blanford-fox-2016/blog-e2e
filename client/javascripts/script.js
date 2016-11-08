@@ -78,7 +78,7 @@ $(document).ready(function() {
           </div>
         </div>
         `;
-        $( '#inputArticle' ).each(function(){
+        $( '#inputArticles' ).each(function(){
             this.reset();
         });
         $("#articles").append(newHTML);
