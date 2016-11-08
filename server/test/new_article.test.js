@@ -41,4 +41,42 @@ describe('Create new article', function() {
                 console.error('Type post failed:', error)
             })
     })
+    it('Expect to edit article automatically', function(done) {
+        nightmare
+            .click('#articlepanel')
+            .wait(1000)
+            .click('#buttonEditArticle')
+            .wait(1000)
+            .click('input#input_title')
+            .type('input#input_title', '')
+            .type('input#input_title', 'This Artice title was updated by nightmare ghost!')
+            .click('input#input_content')
+            .type('input#input_content', '')
+            .type('input#input_content', 'This Article content was updated by nightmare ghost!')
+            .wait(1000)
+            .click('#newEditButton')
+            .wait(1000)
+            .click('#articlepanel')
+            .wait(2000)
+            .then(function() {
+                done()
+            })
+            .catch(function(error) {
+                console.error('Type post failed:', error)
+            })
+    })
+    it('Expect to DELETE article automatically', function(done) {
+        nightmare
+            .click('#articlepanel')
+            .wait(500)
+            .click('#buttonDeleteArticle')
+            .wait(500)
+            .click('#articlepanel')
+            .then(function() {
+                done()
+            })
+            .catch(function(error) {
+                console.error('Type post failed:', error)
+            })
+    })
 })

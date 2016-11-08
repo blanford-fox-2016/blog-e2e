@@ -21,6 +21,15 @@ function loadArticle() {
                     <td><span>
                             <button id="buttonEditArticle" class="btn btn-warning" onclick="formEditArticle('${data[i].id}')">Edit</button>
                             <button id="buttonDeleteArticle" class="btn btn-danger" onclick="deleteArticle('${data[i].id}')">Delete</button>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm">Small modal</button>
+
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      ...
+    </div>
+  </div>
+</div>
                         </span></td>
                 </tr>`
             }
@@ -79,9 +88,9 @@ function formEditArticle(parameter) {
     xhr.onload = function() {
         if (xhr.status === 200) {
             var data = JSON.parse(xhr.responseText)
-            document.getElementById('input_title').value = data[0].title
-            document.getElementById('input_content').value = data[0].content
-            $("#button-replace-item").html(`<button type='submit' class='btn btn-warning' onclick=putItem('${data[0].id}')>Update</button>`)
+            document.getElementById('input_title').value = data.title
+            document.getElementById('input_content').value = data.content
+            $("#button-replace-item").html(`<button type='submit' id='newEditButton' class='btn btn-warning' onclick=putItem('${data.id}')>Update</button>`)
         } else {
             alert('Request failed.  Returned status of ' + xhr.status);
         }
@@ -95,19 +104,15 @@ function putItem(parameter) {
     let article_content = document.getElementById('input_content').value
     if (article_title != "" && article_content != "") {
         $.ajax({
-            url: `http://localhost:3000/api/item/${parameter}`,
+            url: `http://localhost:3000/api/article/${parameter}`,
             method: "put",
             contentType: 'application/x-www-form-urlencoded',
             data: {
                 id: parameter,
-                itemCode: article_title,
-                name: article_content,
-                description: item_desc,
-                price: item_price,
-                stock: item_stock
+                title: article_title,
+                content: article_content,
             },
             success: function(data) {
-                alert('Updated Successfully')
                 loadTableItem()
             }
         })
@@ -116,8 +121,8 @@ function putItem(parameter) {
     }
 }
 
-function deleteItem(parameter) {
-    var del = confirm("Are you sure want to delete this item?")
+function deleteArticle(parameter) {
+    var del = confirm("Are you sure want to delete this Article?")
     if (del) {
         $.ajax({
             url: `http://localhost:3000/api/item/${parameter}`,
