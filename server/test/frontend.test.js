@@ -1,7 +1,7 @@
 var Nightmare = require('nightmare');
 var expect = require('chai').expect; // jshint ignore:line
 //
-describe.skip('add new article', function() {
+describe('add new article', function() {
 
   this.timeout(10000)
 
@@ -26,6 +26,44 @@ describe.skip('add new article', function() {
       .end()
       .then(function(result) {
         expect(result).to.equal('boo');
+        done();
+      })
+  });
+});
+
+describe('edit article', function() {
+
+  this.timeout(60000)
+
+  // cont $ = cheerio
+  it('should change the title from "boo" to "Trick or Treat"', function(done) {
+    var nightmare = Nightmare({ show: true });
+    nightmare
+      .goto('http://localhost:8080')
+      .wait('#articles .col-sm-6.col-md-4')
+      .click('p.text-center button.btn.btn-primary')
+      .click('.edt')
+      .wait(1000)
+      .click('.arcTitle')
+      .insert('.arcTitle', '')
+      .type('.arcTitle', 'Trick or Treat')
+      .wait(1000)
+      .click('.arcContent')
+      .insert('.arcContent', '')
+      .type('.arcContent', 'Gimme some candies')
+      .wait(1000)
+      .click('.arcCategory')
+      .insert('.arcCategory', '')
+      .type('.arcCategory', 'halloween')
+      .wait(1000)
+      .click('.edt')
+      .wait(1000)
+      .evaluate(function () {
+        return document.querySelector('.thumbnail .caption h3').innerHTML
+      })
+      .end()
+      .then(function(result) {
+        expect(result).to.equal('Trick or Treat');
         done();
       })
   });

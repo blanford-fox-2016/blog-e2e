@@ -30,7 +30,7 @@ $(document).ready(function() {
         </div>
 
         <!-- Modal -->
-        <div class="modal fade" id="deletemodal${data._id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal fade deletemodal" id="deletemodal${data._id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -42,14 +42,14 @@ $(document).ready(function() {
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger" onclick="deleteItem('${data._id}')">Delete</button>
+                <button type="button" class="btn btn-danger delt" onclick="deleteItem('${data._id}')">Delete</button>
               </div>
             </div>
           </div>
         </div>
 
         <!-- Modal -->
-        <div class="modal fade" id="detailmodal${data._id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal fade detailmodal" id="detailmodal${data._id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -59,7 +59,7 @@ $(document).ready(function() {
               <div class="modal-body">
                 <form class = col-md-12 id="detailArticle${data._id}">
                   <div class="form-group">
-                    <label class="control-label" for="detArticleTitle">ItemCode : </label>
+                    <label class="control-label" for="detArticleTitle">Title : </label>
                     <div id="detArticleTitle${data._id}">${data.title}</div>
                     <label class="control-label" for="detArticleContent">Content : </label>
                     <div id="detArticleContent${data._id}">${data.content}</div>
@@ -71,7 +71,7 @@ $(document).ready(function() {
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <span id="editbtn${data._id}">
-                  <button type="button" class="btn btn-success" onclick=editItem('${data._id}')>Edit</button>
+                  <button type="button" class="btn btn-success edt" onclick=editItem('${data._id}')>Edit</button>
                 </span>
               </div>
             </div>
@@ -112,7 +112,7 @@ $(document).ready(function() {
         </div>
 
         <!-- Modal -->
-        <div class="modal fade" id="deletemodal${data[i]._id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal fade deletemodal" id="deletemodal${data[i]._id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -124,14 +124,14 @@ $(document).ready(function() {
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger" onclick="deleteItem('${data[i]._id}')">Delete</button>
+                <button type="button" class="btn btn-danger delt" onclick="deleteItem('${data[i]._id}')">Delete</button>
               </div>
             </div>
           </div>
         </div>
 
         <!-- Modal -->
-        <div class="modal fade" id="detailmodal${data[i]._id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal fade detailmodal" id="detailmodal${data[i]._id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -141,7 +141,7 @@ $(document).ready(function() {
               <div class="modal-body">
                 <form class = col-md-12 id="detailArticle${data[i]._id}">
                   <div class="form-group">
-                    <label class="control-label" for="detArticleTitle">ItemCode : </label>
+                    <label class="control-label" for="detArticleTitle">Title : </label>
                     <div id="detArticleTitle${data[i]._id}">${data[i].title}</div>
                     <label class="control-label" for="detArticleContent">Content : </label>
                     <div id="detArticleContent${data[i]._id}">${data[i].content}</div>
@@ -153,7 +153,7 @@ $(document).ready(function() {
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <span id="editbtn${data[i]._id}">
-                  <button type="button" class="btn btn-success" onclick=editItem('${data[i]._id}')>Edit</button>
+                  <button type="button" class="btn btn-success edt" onclick=editItem('${data[i]._id}')>Edit</button>
                 </span>
               </div>
             </div>
@@ -171,10 +171,10 @@ function editItem(id) {
   var title = document.getElementById('detArticleTitle'+id).innerHTML;
   var content = document.getElementById('detArticleContent'+id).innerHTML;
   var category = document.getElementById('detArticleCategory'+id).innerHTML;
-  document.getElementById('detArticleTitle'+id).innerHTML = `<input class="form-control" id="articleTitle${id}" type="text" value="${title}">`;
-  document.getElementById('detArticleCategory'+id).innerHTML = `<input class="form-control" id="articleCategory${id}" type="text" value="${category}">`;
-  document.getElementById('detArticleContent'+id).innerHTML = `<textarea class="form-control" id="articleContent${id}">${content}</textarea>`;
-  document.getElementById('editbtn'+id).innerHTML = `<button type="button" class="btn btn-success" onclick="updateItem('${id}')" data-dismiss="modal">Save</button>`;
+  document.getElementById('detArticleTitle'+id).innerHTML = `<input class="form-control arcTitle" id="articleTitle${id}" type="text" value="${title}">`;
+  document.getElementById('detArticleCategory'+id).innerHTML = `<input class="form-control arcCategory" id="articleCategory${id}" type="text" value="${category}">`;
+  document.getElementById('detArticleContent'+id).innerHTML = `<textarea class="form-control arcContent" id="articleContent${id}">${content}</textarea>`;
+  document.getElementById('editbtn'+id).innerHTML = `<button type="button" class="btn btn-success edt" onclick="updateItem('${id}')" data-dismiss="modal">Save</button>`;
 }
 
 function updateItem(id) {
