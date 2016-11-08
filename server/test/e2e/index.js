@@ -1,6 +1,6 @@
-const app = require('../app')
+const app = require('../../app')
 const mongoose = require('mongoose')
-const User = require('../models/user')
+const User = require('../../models/user')
 
 const mocha = require('mocha')
 const chai = require('chai')
@@ -12,7 +12,7 @@ chai.use(chaiHttp)
 //BLOG
 describe("Test if create Blog works", function () {
 
-    beforeEach(function (done) {
+    setup(function (done) {
         chai.request(app)
             .get('/api/blog/seed')
             .end(function (err, res) {
@@ -21,7 +21,7 @@ describe("Test if create Blog works", function () {
             })
     })
 
-    afterEach(function (done) {
+    teardown(function (done) {
         chai.request(app)
             .delete('/api/blog/delete')
             .end(function (err, res) {
