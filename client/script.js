@@ -13,8 +13,8 @@ $(document).ready(function () {
                                         <td>${data[i].email}</td>
                                         <td>
                                             <span>
-                                                <button id="buttonEditUser${data[i]._id}" class="btn btn-warning" onclick="">Edit</button>
-                                                <button id="buttonDeleteUser${data[i]._id}" class="btn btn-danger" onclick="deleteUser('${data[i].userId}')">Delete</button>
+                                                <button id="update${data[i].userId}" class="btn btn-warning update" onclick="">Edit</button>
+                                                <button id="delete${data[i].userId}" class="btn btn-danger delete" onclick="deleteUser('${data[i].userId}')">Delete</button>
                                             </span>
                                         </td>
                                      </tr>`)
@@ -61,8 +61,8 @@ function updateCreateUser(user) {
                     <td>${user.email}</td>
                     <td>
                         <span>
-                            <button data-id="${user._id}" class="btn btn-warning" onclick="">Edit</button>
-                            <button data-id="${user._id}" class="btn btn-danger" onclick="deleteUser('${user.userId}')">Delete</button>
+                            <button id="update${user._id}" class="btn btn-warning update" onclick="">Edit</button>
+                            <button id="delete${user._id}" class="btn btn-danger delete" onclick="deleteUser('${user.userId}')">Delete</button>
                         </span>
                     </td>
                  </tr>`
@@ -76,11 +76,11 @@ function updateCreateUser(user) {
 
 //DELETE USER
 function deleteUser(id) {
-    console.log(id)
-    var del = confirm("Are you sure you want to delete this user?")
-    if (del) {
         deleteUserFromAPI(id)
-    }
+    // var del = confirm("Are you sure you want to delete this user?")
+    // if (del) {
+    //     deleteUserFromAPI(id)
+    // }
 }
 function deleteUserFromAPI(userId) {
     var temp = userId

@@ -70,11 +70,13 @@ describe("Test if Users works", function () {
 describe("Test if Users submission works", function () {
 
     this.timeout(10000)
+    const $ = cheerio
 
     it("Return true if register user works", function (done) {
         nightmare
             .goto('http://localhost:8080')
             .wait(1000)
+            .type('input#inputUserId', '8')
             .type('input#inputName', 'name z')
             .type('input#inputUsername', 'username z')
             .type('input#inputPassword', 'password z')
@@ -95,17 +97,18 @@ describe("Test if Users submission works", function () {
             })
     })
 
-    it("Return true if delete blog works", function (done) {
+    it("Return true if delete user works", function (done) {
         nightmare
             .goto('http://localhost:8080')
-            .click('data-id')
+            .wait(1000)
+            .click('#delete1')
             .wait(1000)
             .evaluate(function () {
-                let val = $('#rowOfUser tr:last td:first', document)
+                let val = $('#rowOfUser tr:first td:first', document)
                 return val.text()
             })
             .then(function (name) {
-                expect(name).to.equal("name z")
+                expect(name).to.equal("name b")
                 done()
             })
             .catch(function (error) {
