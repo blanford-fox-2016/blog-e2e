@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Interactive Shopping Chart</title>
+    <title>blog-e-2-e</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <!-- jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -48,8 +48,9 @@
       sendMemo(Blog);//send data to create
     })
   }
-
-  //function to create in mongo
+  //===========================================
+  //function to create in mongo with ajax=======
+  //===========================================
   function sendMemo(Blog){
     $.ajax({
       url         : "http://localhost:3000/api/blog",
@@ -62,10 +63,10 @@
               <div class="form-group" >
                 <div class="form-group">
                   <br>
-                  <h1 style="text-align:center" id> Title : ${data.title}</h1>
+                  <h1 style="text-align:center" > Title : ${data.title}</h1>
                 </div>
                 <label for="exampleTextarea"> </label>
-                <textarea class="form-control" name = "catatan" id="catatan" rows="3">${data.content}</textarea>
+                <textarea class="form-control" name = "content"  rows="3"  id = "a${data._id}" >${data.content}</textarea>
               </div>
               <button type="button" class="btn btn-primary"  onclick="deleteMemo('${data._id}')">Delete</button>
               <button type="button" class="btn btn-primary"  onclick="updateMemo('${data._id}')">Update</button>
@@ -79,7 +80,6 @@
     $.ajax({
       url         : "http://localhost:3000/api/blog",
       method      : 'get',
-      contentType : 'application/x-www-form-urlencoded',
       data        : {},
       success     : function (data){
       console.log("--------",data)
@@ -93,7 +93,7 @@
                        <h1 style="text-align:center" > Title : ${data.title}</h1>
                      </div>
                      <label for="exampleTextarea"> </label>
-                     <textarea class="form-control" name = "catatan" id="catatan" rows="3">${data.content}</textarea>
+                     <textarea class="form-control" name = "content" rows="3"  id = "${data._id}" >${data.content}</textarea>
                    </div>
                    <button type="button" class="btn btn-primary"  onclick="deleteMemo('${data._id}')">Delete</button>
                    <button type="button" class="btn btn-primary"  onclick="updateMemo('${data._id}')">Update</button>
@@ -118,6 +118,7 @@
       contentType : 'application/x-www-form-urlencoded',
       data        :  {id:id},
       success     : function(data) {
+        alert(`${data.title} has been remove `)
         $(`#${data._id}`).remove();
       }
     })
@@ -127,18 +128,23 @@
   // //-----------------------------
 
   function updateMemo(id){
-    alert(id+"ini");
-    console.log(id+"aja");
-    $.ajax({
-      url         : "http://localhost:3000/api/customers/update/"+id,
-      method      : 'put',
-      contentType : 'application/x-www-form-urlencoded',
-      data        : {'id':id},
-      success     : function(data) {
-        $(`#${id}`).remove();
-      }
+    $(document).ready(function(){
+      content = $(`#a${id}`).val()
+      console.log(id+"aja");
+      $.ajax({
+        url         : "http://localhost:3000/api/blog/"+id,
+        method      : 'put',
+        contentType : 'application/x-www-form-urlencoded',
+        data        : {id,content},
+        success     : function(data) {
+          alert(data.content + "updated")
+        }
+      })
     })
-  }  //-------------------
+
+  }
+
+      //-------------------
   </script>
   <!-- <script type="text/javascript" src = "index.js" ></script> -->
 </html>
