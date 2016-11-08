@@ -35,11 +35,11 @@ console.log(req.body);
 let deleteBlog = (req,res) => {
   console.log("masukkkkk");
   console.log(req.params.id);
-  Blog.findByIdAndRemove(req.params.id,(err) => {
+  Blog.findByIdAndRemove(req.params.id,(err,data) => {
     if (err) {
       res.status(404)
     } else {
-      res.json({message:"User delete"})
+      res.json(data)
     }
   })
 }
