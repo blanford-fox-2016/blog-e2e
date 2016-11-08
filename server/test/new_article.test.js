@@ -76,6 +76,7 @@ describe('Create new article', function() {
             .evaluate(function() {
                 loadArticle()
             })
+            .wait(1000)
             .then(function() {
                 done()
             })
