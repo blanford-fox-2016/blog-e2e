@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Interactive Shopping Chart</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="form-group">
+        <div class="form-group">
+          <br>
+          <label for="postId">PostId:</label>
+          <input type="text" class="form-control" name="postId" id="postId">
+        </div>
+        <div class="form-group">
+          <br>
+          <label for="title">Title:</label>
+          <input type="text" class="form-control" name="title" id="title">
+        </div>
+        <label for="exampleTextarea"> </label>
+        <textarea class="form-control" name = "content" id="content" rows="3"></textarea>
+      </div>
+      <button type="button" class="btn btn-primary"  onclick= "addBlog()" >Submit</button>
+    </div>
+  </body>
+  <div class="container" id="show">
+  </div>
+  <div class="container" id ="show2">
+
+  </div>
+  <script type="text/javascript">
+
+  // add blog
+  function addBlog(){
+    $(document).ready(function(){
+      Blog = {
+        postId: $('#postId').val(),
+        title : $('#title').val(),
+        content  : $('#content').val()
+      }
+      sendMemo(Blog);//send data to create
+    })
+  }
+
+  //function to create in mongo
+  function sendMemo(Blog){
+    $.ajax({
+      url         : "http://localhost:3000/api/blog",
+      method      : 'post',
+      contentType : 'application/x-www-form-urlencoded',
+      data        : Blog,
+      success     : function (data){
+      console.log("--------",data)
+        let resultHTML = `  <hr><div class="container">
+            <div class="form-group" id = "${data._id}">
+              <div class="form-group">
+                <br>
+                <h1 style="text-align:center"> Title : ${data.title}</h1>
+              </div>
+              <label for="exampleTextarea"> </label>
+              <textarea class="form-control" name = "catatan" id="catatan" rows="3">${data.content}</textarea>
+            </div>
+            <button type="button" class="btn btn-primary"  onclick="deleteMemo("${data._id}")">Update</button>
+            <button type="button" class="btn btn-primary"  onclick="updateMemo("${data._id}")">Delete</button>
+          </div>`
+        $("#show").append(resultHTML)
+      }
+    })
+  }
+  //show all data using ajax
+  $(document).ready(function(){
+    $.ajax({
+      url         : "http://localhost:3000/api/blog",
+      method      : 'get',
+      contentType : 'application/x-www-form-urlencoded',
+      data        : {},
+      success     : function (data){
+      console.log("--------",data)
+        console.log(data)
+           var html = "";
+           for(var i = 0; i < data.length; i++){
+             html += ` <hr><div class="container">
+                 <div class="form-group" id = "${data[i]._id}">
+                   <div class="form-group">
+                     <br>
+                     <h1 style="text-align:center"> Title : ${data[i].title}</h1>
+                   </div>
+                   <label for="exampleTextarea"> </label>
+                   <textarea class="form-control" name = "catatan" id="catatan" rows="3">${data[i].content}</textarea>
+                 </div>
+                 <button type="button" class="btn btn-primary"  onclick="deleteMemo(${data[i]._id.toString()})">Delete</button>
+                 <button type="button" class="btn btn-primary"  onclick="updateMemo(${data[i]._id.toString()})">Update</button>
+               </div>`
+           }
+          $("#show2").append(html)
+         }
+    })
+  })
+  //-----------------------------------
+  // //the end of create
+  // //------------------------------------
+//==================
+// remove data ====
+//================
+  function deleteMemo(id){
+    $.ajax({
+      url         : "http://localhost:3000/api/blog/"+id,
+      method      : 'delete',
+      contentType : 'application/x-www-form-urlencoded',
+      data        :  {id:id},
+      success     : function(data) {
+        $(`#${data._id}`).remove();
+      }
+    })
+  }
+  // //-------------------------
+  // //update items
+  // //-----------------------------
+  // function updateCustomer(id){
+  //   alert(id);
+  //   console.log(id+"aja");
+  //   $.ajax({
+  //     url         : "http://localhost:3000/api/customers/update/"+id,
+  //     method      : 'put',
+  //     contentType : 'application/x-www-form-urlencoded',
+  //     data        : {'id':id},
+  //     success     : function(data) {
+  //       $(`#${id}`).remove();
+  //     }
+  //   })
+  // }  //-------------------
+  </script>
+  <!-- <script type="text/javascript" src = "index.js" ></script> -->
+</html>
