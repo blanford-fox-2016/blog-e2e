@@ -43,8 +43,8 @@ function submitUpdateButton(){
         <td>${new_edited.articleId}</td>
         <td>${new_edited.content}</td>
         <td>
-          <button type="button" class="btn btn-warning" id="edit" onclick="submitEditButton('${new_edited.articleId}')">Edit</button>
-          <button type="button" class="btn btn-danger" id="delete" data-toggle="modal" data-target="#confirm-delete">Delete</button>
+          <button type="button" class="btn btn-warning" id="edit${new_edited.articleId}" onclick="submitEditButton('${new_edited.articleId}')">Edit</button>
+          <button type="button" class="btn btn-danger" id="delete${new_edited.articleId}" data-toggle="modal" data-target="#confirm-delete">Delete</button>
           <div class="modal fade" class="delete_modal" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
               <div class="modal-dialog">
                   <div class="modal-content">
@@ -113,8 +113,8 @@ function showAll(){
         <td>${all_data[i].articleId}</td>
         <td>${all_data[i].content}</td>
         <td>
-          <button type="button" class="btn btn-warning" id="edit" onclick="submitEditButton('${all_data[i].articleId}')">Edit</button>
-          <button type="button" class="btn btn-danger" id="delete" data-toggle="modal" data-target="#confirm-delete">Delete</button>
+          <button type="button" class="btn btn-warning" id="edit${all_data[i].articleId}" onclick="submitEditButton('${all_data[i].articleId}')">Edit</button>
+          <button type="button" class="btn btn-danger" id="delete${all_data[i].articleId}" data-toggle="modal" data-target="#confirm-delete">Delete</button>
           <div class="modal fade" class="delete_modal" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
               <div class="modal-dialog">
                   <div class="modal-content">
@@ -157,8 +157,8 @@ function submitNew(){
           <td>${new_content.articleId}</td>
           <td>${new_content.content}</td>
           <td>
-            <button type="button" class="btn btn-warning" id="edit" onclick="submitEditButton('${new_content.articleId}')">Edit</button>
-            <button type="button" class="btn btn-danger" id="delete" data-toggle="modal" data-target="#confirm-delete">Delete</button>
+            <button type="button" class="btn btn-warning" id="edit${new_content.articleId}" onclick="submitEditButton('${new_content.articleId}')">Edit</button>
+            <button type="button" class="btn btn-danger" id="delete${new_content.articleId}" data-toggle="modal" data-target="#confirm-delete">Delete</button>
             <div class="modal fade" class="delete_modal" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">

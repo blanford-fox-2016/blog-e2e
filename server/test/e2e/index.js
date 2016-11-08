@@ -29,7 +29,7 @@ describe('Create new article', function(){
     nightmare
       .goto(`${URL}`)
       .type(`input#articleId`, 1)
-      .type(`textarea#content`, 'new article content from test e2e')
+      .type(`textarea#content`, 'new article content from test e2e : \n Lorem ipsum dolor sit amet, consectetur adipiscing elit.')
       .click(`button#btn_add`)
 			.wait(1000)
       .then(function(){
@@ -48,12 +48,13 @@ describe('Edit a article', function(){
 		nightmare
 			.goto(`${URL}`)
 			.wait(1000)
-			.click(`#edit`)
+			.click(`#edit1`)
+			.wait(1000)
 			.insert(`textarea#content`, '')
 			.wait(1000)
-			.type(`textarea#content`, 'new update article content from test e2e')
+			.type(`textarea#content`, 'new update article content from test e2e : Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque non commodo neque. ')
 			.click(`button#btn_update`)
-			.wait(3000)
+			.wait(1000)
 			.then(function(){
 				done()
 			})
@@ -70,10 +71,10 @@ describe('Delete a article', function(){
 		nightmare
 			.goto(`${URL}`)
 			.wait(2000)
-			.click(`#delete`)
+			.click(`#delete1`)
 			.wait(1000)
 			.click(`#btn_confirm_delete`)
-			.wait(2000)
+			.wait(1000)
 			.then(function(){
 				done()
 			})
