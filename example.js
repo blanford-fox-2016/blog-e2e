@@ -3,19 +3,16 @@ var nightmare = Nightmare({ show: true });
 
 nightmare
   .goto('http://localhost:8080')
-  .wait('[name=add]')
-  .click('[name=add]')
-  .click('form#inputArticles #articleTitle')
-  .type('form#inputArticles #articleTitle', 'boo')
-  .click('form#inputArticles #articleContent')
-  .type('form#inputArticles #articleContent', 'There is a ghost who knows how to use computer, awesome!')
-  .click('form#inputArticles #articleCategory')
-  .type('form#inputArticles #articleCategory', 'mistery')
-  .click('form#inputArticles [name=submit]')
-  .wait('.col-sm-6.col-md-4')
+  .wait('#articles .col-sm-6.col-md-4')
+  .wait(1000)
+  .click('p.text-center button.btn.btn-danger')
+  .wait(1000)
+  .click('.delt')
+  .wait('#dltd')
   .evaluate(function () {
-    return document.querySelector('.thumbnail .caption h3').innerHTML
+    return document.querySelector('#dltd').innerHTML
   })
+  .end()
   .end()
   .then(function (result) {
     console.log(result)

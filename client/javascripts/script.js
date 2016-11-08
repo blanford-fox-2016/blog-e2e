@@ -246,6 +246,7 @@ function deleteItem(id) {
       $(`#detailmodal${id}`).remove();
       $(`#deletemodal${id}`).remove();
       $(`.modal-backdrop.fade.in`).remove();
+      $(`#articles`).append('<div id="dltd" style="displat:none;">success</dltd>');
     }
   })
 
