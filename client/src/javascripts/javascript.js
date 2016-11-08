@@ -20,16 +20,23 @@ function loadArticle() {
                     <td>${data[i].content}</td>
                     <td><span>
                             <button id="buttonEditArticle" class="btn btn-warning" onclick="formEditArticle('${data[i].id}')">Edit</button>
-                            <button id="buttonDeleteArticle" class="btn btn-danger" onclick="deleteArticle('${data[i].id}')">Delete</button>
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm">Small modal</button>
+                            <button id='modalDelButton' type="button" class="btn btn-danger" data-toggle="modal" data-target=".bs-example-modal-sm">Delete</button>
 
-<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-  <div class="modal-dialog modal-sm" role="document">
-    <div class="modal-content">
-      ...
-    </div>
-  </div>
-</div>
+                <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                <div class="modal-dialog" role="document">
+                <div class="modal-content " id='modalContent'>
+                <div class='modal-header text-center'><h4>Are you sure you want to delete this Article ?</h4></div>
+                <div class="modal-body">
+
+
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" id="buttonDeleteArticle" class="btn btn-primary" onclick="deleteArticle('${data[i].id}')" >OK</button>
+                </div>
+                </div>
+                </div>
+                </div>
                         </span></td>
                 </tr>`
             }
@@ -122,20 +129,19 @@ function putItem(parameter) {
 }
 
 function deleteArticle(parameter) {
-    var del = confirm("Are you sure want to delete this Article?")
-    if (del) {
-        $.ajax({
-            url: `http://localhost:3000/api/item/${parameter}`,
-            method: "delete",
-            contentType: 'application/x-www-form-urlencoded',
-            data: {
-                id: parameter
-            },
-            success: function() {
-                alert('Deleted Successfully')
-                loadTableItem()
-            }
-        })
-    }
+    $.ajax({
+        url: `http://localhost:3000/api/article/${parameter}`,
+        method: "delete",
+        contentType: 'application/x-www-form-urlencoded',
+        data: {
+            id: parameter
+        },
+        success: function() {
+            $('#modalContent').hide()
+            $('.modal-backdrop').hide()
+        }
+    })
 
 }
+
+loadArticle()

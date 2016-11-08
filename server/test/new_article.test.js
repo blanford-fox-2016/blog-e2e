@@ -31,9 +31,9 @@ describe('Create new article', function() {
             .type('input#input_content', 'This is Hello World Article!')
             .wait(1000)
             .click('#addArticleButton')
-            .wait(5000)
+            .wait(1000)
             .click('#articlepanel')
-            .wait(10000)
+            .wait(1000)
             .then(function() {
                 done()
             })
@@ -43,8 +43,6 @@ describe('Create new article', function() {
     })
     it('Expect to edit article automatically', function(done) {
         nightmare
-            .click('#articlepanel')
-            .wait(1000)
             .click('#buttonEditArticle')
             .wait(1000)
             .click('input#input_title')
@@ -56,7 +54,9 @@ describe('Create new article', function() {
             .wait(1000)
             .click('#newEditButton')
             .wait(1000)
-            .click('#articlepanel')
+            .evaluate(function() {
+                loadArticle()
+            })
             .wait(2000)
             .then(function() {
                 done()
@@ -69,9 +69,13 @@ describe('Create new article', function() {
         nightmare
             .click('#articlepanel')
             .wait(500)
+            .click('#modalDelButton')
+            .wait(1000)
             .click('#buttonDeleteArticle')
             .wait(500)
-            .click('#articlepanel')
+            .evaluate(function() {
+                loadArticle()
+            })
             .then(function() {
                 done()
             })
