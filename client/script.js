@@ -31,23 +31,23 @@ function createCustomer(e) {
     var username = $("input[name='username']").val()
     var password = $("input[name='password']").val()
     var email = $("input[name='email']").val()
-    addCustomerFromAPI(name, memberId, address, zip, phone)
+    addUserFromAPI(name, username, password, email)
 }
 
-function addCustomerFromAPI(name, memberId, address, zip, phone) {
+function addUserFromAPI(name, username, password, email) {
     $.ajax({
-        url: "http://localhost:3000/api/customer/create",
+        url: "http://localhost:3000/api/register",
         method: "post",
         contentType: 'application/x-www-form-urlencoded',
         data: {
+            userId: 10,
             name: name,
-            memberId: memberId,
-            address: address,
-            zip: zip,
-            phone: phone
+            usernmae: username,
+            password: password,
+            email: email
         },
-        success: function (customer) {
-            updateCreateCustomer(customer.customer)
+        success: function (user) {
+            console.log(user)
         }
     })
 }
